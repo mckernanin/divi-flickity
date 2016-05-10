@@ -33,10 +33,12 @@ class DiviFlickity {
 
 	function __construct() {
 		add_action( 'wp', array( $this, 'replace_shortcodes' ), 100 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'scripts_styles' ) );
 	}
 
-	public function test() {
-		return '[test]';
+	public function scripts_styles() {
+		wp_register_style( 'flickity', 'https://npmcdn.com/flickity@1.2/dist/flickity.min.css' );
+		wp_register_script( 'flickity', 'https://npmcdn.com/flickity@1.2/dist/flickity.pkgd.min.js' );
 	}
 
 	public function replace_shortcodes() {

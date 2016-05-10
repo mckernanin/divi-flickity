@@ -47,20 +47,20 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 			'show_image_video_mobile' => array( 'off' ),
 		);
 
-		$this->main_css_element = '%%order_class%%.et_pb_slider';
+		$this->main_css_element = '%%order_class%%.divi_flickity_slider';
 		$this->advanced_options = array(
 			'fonts' => array(
 				'header' => array(
 					'label'    => esc_html__( 'Header', 'et_builder' ),
 					'css'      => array(
-						'main' => "{$this->main_css_element} .et_pb_slide_description .et_pb_slide_title",
+						'main' => "{$this->main_css_element} .divi_flickity_slide_description .divi_flickity_slide_title",
 					),
 				),
 				'body'   => array(
 					'label'    => esc_html__( 'Body', 'et_builder' ),
 					'css'      => array(
 						'line_height' => "{$this->main_css_element}",
-						'main' => "{$this->main_css_element} .et_pb_slide_content",
+						'main' => "{$this->main_css_element} .divi_flickity_slide_content",
 					),
 				),
 			),
@@ -73,15 +73,15 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 		$this->custom_css_options = array(
 			'slide_description' => array(
 				'label'    => esc_html__( 'Slide Description', 'et_builder' ),
-				'selector' => '.et_pb_slide_description',
+				'selector' => '.divi_flickity_slide_description',
 			),
 			'slide_title' => array(
 				'label'    => esc_html__( 'Slide Title', 'et_builder' ),
-				'selector' => '.et_pb_slide_description .et_pb_slide_title',
+				'selector' => '.divi_flickity_slide_description .divi_flickity_slide_title',
 			),
 			'slide_button' => array(
 				'label'    => esc_html__( 'Slide Button', 'et_builder' ),
-				'selector' => 'a.et_pb_more_button',
+				'selector' => 'a.divi_flickity_more_button',
 			),
 			'slide_controllers' => array(
 				'label'    => esc_html__( 'Slide Controllers', 'et_builder' ),
@@ -93,7 +93,7 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 			),
 			'slide_image' => array(
 				'label'    => esc_html__( 'Slide Image', 'et_builder' ),
-				'selector' => '.et_pb_slide_image',
+				'selector' => '.divi_flickity_slide_image',
 			),
 			'slide_arrows' => array(
 				'label'    => esc_html__( 'Slide Arrows', 'et_builder' ),
@@ -133,7 +133,7 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 					'on'  => esc_html__( 'On', 'et_builder' ),
 				),
 				'affects' => array(
-					'#et_pb_auto_speed, #et_pb_auto_ignore_hover',
+					'#divi_flickity_auto_speed, #divi_flickity_auto_ignore_hover',
 				),
 				'description'        => esc_html__( 'If you would like the slider to slide automatically, without the visitor having to click the next button, enable this option and then adjust the rotation speed below if desired.', 'et_builder' ),
 			),
@@ -164,9 +164,9 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 					'on'  => esc_html__( 'Yes', 'et_builder' ),
 				),
 				'affects'           => array(
-					'#et_pb_parallax_method',
-					'#et_pb_background_position',
-					'#et_pb_background_size',
+					'#divi_flickity_parallax_method',
+					'#divi_flickity_background_position',
+					'#divi_flickity_background_size',
 				),
 				'description'        => esc_html__( 'Enabling this option will give your background images a fixed position as you scroll.', 'et_builder' ),
 			),
@@ -298,14 +298,14 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 				'type'            => 'text',
 				'option_category' => 'configuration',
 				'tab_slug'        => 'custom_css',
-				'option_class'    => 'et_pb_custom_css_regular',
+				'option_class'    => 'divi_flickity_custom_css_regular',
 			),
 			'module_class' => array(
 				'label'           => esc_html__( 'CSS Class', 'et_builder' ),
 				'type'            => 'text',
 				'option_category' => 'configuration',
 				'tab_slug'        => 'custom_css',
-				'option_class'    => 'et_pb_custom_css_regular',
+				'option_class'    => 'divi_flickity_custom_css_regular',
 			),
 		);
 		return $fields;
@@ -339,6 +339,9 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 	}
 
 	function shortcode_callback( $atts, $content = null, $function_name ) {
+		wp_enqueue_script( 'flickity' );
+		wp_enqueue_style( 'flickity' );
+
 		$module_id               = $this->shortcode_atts['module_id'];
 		$module_class            = $this->shortcode_atts['module_class'];
 		$show_arrows             = $this->shortcode_atts['show_arrows'];
@@ -375,7 +378,7 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 				'phone'   => $top_padding_phone,
 			);
 
-			et_pb_generate_responsive_css( $padding_values, '%%order_class%% .et_pb_slide_description, .et_pb_slider_fullwidth_off%%order_class%% .et_pb_slide_description', 'padding-top', $function_name );
+			et_pb_generate_responsive_css( $padding_values, '%%order_class%% .divi_flickity_slide_description, .divi_flickity_slider_fullwidth_off%%order_class%% .divi_flickity_slide_description', 'padding-top', $function_name );
 		}
 
 		if ( '' !== $bottom_padding || '' !== $bottom_padding_tablet || '' !== $bottom_padding_phone ) {
@@ -385,12 +388,12 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 				'phone'   => $bottom_padding_phone,
 			);
 
-			et_pb_generate_responsive_css( $padding_values, '%%order_class%% .et_pb_slide_description, .et_pb_slider_fullwidth_off%%order_class%% .et_pb_slide_description', 'padding-bottom', $function_name );
+			et_pb_generate_responsive_css( $padding_values, '%%order_class%% .divi_flickity_slide_description, .divi_flickity_slider_fullwidth_off%%order_class%% .divi_flickity_slide_description', 'padding-bottom', $function_name );
 		}
 
 		if ( '' !== $bottom_padding || '' !== $top_padding ) {
 			ET_Builder_Module::set_style( $function_name, array(
-				'selector'    => '%%order_class%% .et_pb_slide_description, .et_pb_slider_fullwidth_off%%order_class%% .et_pb_slide_description',
+				'selector'    => '%%order_class%% .divi_flickity_slide_description, .divi_flickity_slider_fullwidth_off%%order_class%% .divi_flickity_slide_description',
 				'declaration' => 'padding-right: 0; padding-left: 0;',
 			) );
 		}
@@ -399,7 +402,7 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 			$processed_position = str_replace( '_', ' ', $background_position );
 
 			ET_Builder_Module::set_style( $function_name, array(
-				'selector'    => '%%order_class%% .et_pb_slide',
+				'selector'    => '%%order_class%% .divi_flickity_slide',
 				'declaration' => sprintf(
 					'background-position: %1$s;',
 					esc_html( $processed_position )
@@ -409,7 +412,7 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 
 		if ( 'default' !== $background_size && 'off' === $parallax ) {
 			ET_Builder_Module::set_style( $function_name, array(
-				'selector'    => '%%order_class%% .et_pb_slide',
+				'selector'    => '%%order_class%% .divi_flickity_slide',
 				'declaration' => sprintf(
 					'-moz-background-size: %1$s;
 					-webkit-background-size: %1$s;
@@ -419,28 +422,28 @@ class DVFL_Builder_Module_Slider extends ET_Builder_Module {
 			) );
 		}
 
-		$fullwidth = 'et_pb_fullwidth_slider' === $function_name ? 'on' : 'off';
+		$fullwidth = 'divi_flickity_fullwidth_slider' === $function_name ? 'on' : 'off';
 
 		$class  = '';
-		$class .= 'off' === $fullwidth ? ' et_pb_slider_fullwidth_off' : '';
-		$class .= 'off' === $show_arrows ? ' et_pb_slider_no_arrows' : '';
-		$class .= 'off' === $show_pagination ? ' et_pb_slider_no_pagination' : '';
-		$class .= 'on' === $parallax ? ' et_pb_slider_parallax' : '';
-		$class .= 'on' === $auto ? ' et_slider_auto et_slider_speed_' . esc_attr( $auto_speed ) : '';
-		$class .= 'on' === $auto_ignore_hover ? ' et_slider_auto_ignore_hover' : '';
-		$class .= 'on' === $remove_inner_shadow ? ' et_pb_slider_no_shadow' : '';
-		$class .= 'on' === $show_image_video_mobile ? ' et_pb_slider_show_image' : '';
+		$class .= 'off' === $fullwidth ? ' divi_flickity_slider_fullwidth_off' : '';
+		$class .= 'off' === $show_arrows ? ' divi_flickity_slider_no_arrows' : '';
+		$class .= 'off' === $show_pagination ? ' divi_flickity_slider_no_pagination' : '';
+		$class .= 'on' === $parallax ? ' divi_flickity_slider_parallax' : '';
+		$class .= 'on' === $auto ? ' divi_flickity_slider_auto et_slider_speed_' . esc_attr( $auto_speed ) : '';
+		$class .= 'on' === $auto_ignore_hover ? ' divi_flickity_slider_auto_ignore_hover' : '';
+		$class .= 'on' === $remove_inner_shadow ? ' divi_flickity_slider_no_shadow' : '';
+		$class .= 'on' === $show_image_video_mobile ? ' divi_flickity_slider_show_image' : '';
 
 		$output = sprintf(
-			'<div%4$s class="et_pb_module et_pb_slider%1$s%3$s%5$s">
-				<div class="et_pb_slides">
+			'<div%4$s class="et_pb_module divi_flickity_slider%1$s%3$s%5$s">
+				<div class="divi_flickity_slides js-flickity">
 					%2$s
-				</div> <!-- .et_pb_slides -->
-			</div> <!-- .et_pb_slider -->
+				</div> <!-- .divi_flickity_slides -->
+			</div> <!-- .divi_flickity_slider -->
 			',
 			$class,
 			$content,
-			( $et_pb_slider_has_video ? ' et_pb_preload' : '' ),
+			( $et_pb_slider_has_video ? ' divi_flickity_preload' : '' ),
 			( '' !== $module_id ? sprintf( ' id="%1$s"', esc_attr( $module_id ) ) : '' ),
 			( '' !== $module_class ? sprintf( ' %1$s', esc_attr( $module_class ) ) : '' )
 		);

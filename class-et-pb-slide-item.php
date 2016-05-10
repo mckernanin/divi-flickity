@@ -54,7 +54,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 				'header' => array(
 					'label'    => esc_html__( 'Header', 'et_builder' ),
 					'css'      => array(
-						'main' => ".et_pb_slider {$this->main_css_element} .et_pb_slide_description .et_pb_slide_title",
+						'main' => ".divi_flickity_slider {$this->main_css_element} .divi_flickity_slide_description .divi_flickity_slide_title",
 						'important' => 'all',
 					),
 					'line_height' => array(
@@ -68,7 +68,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 				'body'   => array(
 					'label'    => esc_html__( 'Body', 'et_builder' ),
 					'css'      => array(
-						'main'        => "{$this->main_css_element} .et_pb_slide_content",
+						'main'        => "{$this->main_css_element} .divi_flickity_slide_content",
 						'line_height' => "{$this->main_css_element} p",
 						'important'   => 'all',
 					),
@@ -85,7 +85,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 				'button' => array(
 					'label' => esc_html__( 'Button', 'et_builder' ),
 					'css'      => array(
-						'main' => ".et_pb_slider {$this->main_css_element}.et_pb_slide .et_pb_button",
+						'main' => ".divi_flickity_slider {$this->main_css_element}.divi_flickity_slide .divi_flickity_button",
 					),
 				),
 			),
@@ -94,23 +94,23 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 		$this->custom_css_options = array(
 			'slide_title' => array(
 				'label'    => esc_html__( 'Slide Title', 'et_builder' ),
-				'selector' => '.et_pb_slide_description h2',
+				'selector' => '.divi_flickity_slide_description h2',
 			),
 			'slide_container' => array(
 				'label'    => esc_html__( 'Slide Description Container', 'et_builder' ),
-				'selector' => '.et_pb_container',
+				'selector' => '.divi_flickity_container',
 			),
 			'slide_description' => array(
 				'label'    => esc_html__( 'Slide Description', 'et_builder' ),
-				'selector' => '.et_pb_slide_description',
+				'selector' => '.divi_flickity_slide_description',
 			),
 			'slide_button' => array(
 				'label'    => esc_html__( 'Slide Button', 'et_builder' ),
-				'selector' => 'a.et_pb_more_button',
+				'selector' => 'a.divi_flickity_more_button',
 			),
 			'slide_image' => array(
 				'label'    => esc_html__( 'Slide Image', 'et_builder' ),
-				'selector' => '.et_pb_slide_image',
+				'selector' => '.divi_flickity_slide_image',
 			),
 		);
 	}
@@ -195,7 +195,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 					'on'  => esc_html__( 'yes', 'et_builder' ),
 				),
 				'affects'           => array(
-					'#et_pb_bg_overlay_color',
+					'#divi_flickity_bg_overlay_color',
 				),
 				'description'     => esc_html__( 'When enabled, a custom overlay color will be added above your background image and behind your slider content.', 'et_builder' ),
 			),
@@ -215,7 +215,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 					'on'  => esc_html__( 'yes', 'et_builder' ),
 				),
 				'affects'           => array(
-					'#et_pb_text_overlay_color',
+					'#divi_flickity_text_overlay_color',
 				),
 				'description'     => esc_html__( 'When enabled, a background color is added behind the slider text to make it more readable atop background images.', 'et_builder' ),
 			),
@@ -384,7 +384,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 				$first_video = true;
 
 			$background_video = sprintf(
-				'<div class="et_pb_section_video_bg%2$s%3$s">
+				'<div class="divi_flickity_section_video_bg%2$s%3$s">
 					%1$s
 				</div>',
 				do_shortcode( sprintf( '
@@ -398,8 +398,8 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 					( '' !== $video_bg_height ? sprintf( ' height="%s"', esc_attr( intval( $video_bg_height ) ) ) : '' ),
 					( '' !== $background_image ? sprintf( ' poster="%s"', esc_url( $background_image ) ) : '' )
 				) ),
-				( $first_video ? ' et_pb_first_video' : '' ),
-				( 'on' === $allow_player_pause ? ' et_pb_allow_player_pause' : '' )
+				( $first_video ? ' divi_flickity_first_video' : '' ),
+				( 'on' === $allow_player_pause ? ' divi_flickity_allow_player_pause' : '' )
 			);
 
 			$et_pb_slider_has_video = true;
@@ -416,7 +416,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 				);
 			}
 
-			$heading = '<h2 class="et_pb_slide_title">' . $heading . '</h2>';
+			$heading = '<h2 class="divi_flickity_slide_title">' . $heading . '</h2>';
 		}
 
 		$button = '';
@@ -449,7 +449,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 
 		if ( 'on' === $use_bg_overlay && '' !== $bg_overlay_color ) {
 			ET_Builder_Element::set_style( $function_name, array(
-				'selector'    => '%%order_class%%.et_pb_slide .et_pb_slide_overlay_container',
+				'selector'    => '%%order_class%%.divi_flickity_slide .divi_flickity_slide_overlay_container',
 				'declaration' => sprintf(
 					'background-color: %1$s;',
 					esc_html( $bg_overlay_color )
@@ -459,7 +459,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 
 		if ( 'on' === $use_text_overlay && '' !== $text_overlay_color ) {
 			ET_Builder_Element::set_style( $function_name, array(
-				'selector'    => '%%order_class%%.et_pb_slide .et_pb_slide_title, %%order_class%%.et_pb_slide .et_pb_slide_content',
+				'selector'    => '%%order_class%%.divi_flickity_slide .divi_flickity_slide_title, %%order_class%%.divi_flickity_slide .divi_flickity_slide_content',
 				'declaration' => sprintf(
 					'background-color: %1$s;',
 					esc_html( $text_overlay_color )
@@ -470,7 +470,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 		if ( '' !== $text_border_radius ) {
 			$border_radius_value = et_builder_process_range_value( $text_border_radius );
 			ET_Builder_Element::set_style( $function_name, array(
-				'selector'    => '%%order_class%%.et_pb_slider_with_text_overlay h2.et_pb_slide_title',
+				'selector'    => '%%order_class%%.divi_flickity_slider_with_text_overlay h2.divi_flickity_slide_title',
 				'declaration' => sprintf(
 					'-webkit-border-top-left-radius: %1$s;
 					-webkit-border-top-right-radius: %1$s;
@@ -482,7 +482,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 				),
 			) );
 			ET_Builder_Element::set_style( $function_name, array(
-				'selector'    => '%%order_class%%.et_pb_slider_with_text_overlay .et_pb_slide_content',
+				'selector'    => '%%order_class%%.divi_flickity_slider_with_text_overlay .divi_flickity_slide_content',
 				'declaration' => sprintf(
 					'-webkit-border-bottom-right-radius: %1$s;
 					-webkit-border-bottom-left-radius: %1$s;
@@ -498,7 +498,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 		$style = '' !== $style ? " style='{$style}'" : '';
 
 		$image = '' !== $image
-			? sprintf( '<div class="et_pb_slide_image"><img src="%1$s" alt="%2$s" /></div>',
+			? sprintf( '<div class="divi_flickity_slide_image"><img src="%1$s" alt="%2$s" /></div>',
 				esc_url( $image ),
 				esc_attr( $image_alt )
 			)
@@ -512,22 +512,22 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 			$video_embed = preg_replace('/<embed /','<embed wmode="transparent" ',$video_embed);
 			$video_embed = preg_replace('/<\/object>/','<param name="wmode" value="transparent" /></object>',$video_embed);
 
-			$image = sprintf( '<div class="et_pb_slide_video">%1$s</div>',
+			$image = sprintf( '<div class="divi_flickity_slide_video">%1$s</div>',
 				$video_embed
 			);
 		}
 
-		if ( '' !== $image ) $class = ' et_pb_slide_with_image';
+		if ( '' !== $image ) $class = ' divi_flickity_slide_with_image';
 
-		if ( '' !== $video_url ) $class .= ' et_pb_slide_with_video';
+		if ( '' !== $video_url ) $class .= ' divi_flickity_slide_with_video';
 
-		$class .= " et_pb_bg_layout_{$background_layout}";
+		$class .= " divi_flickity_bg_layout_{$background_layout}";
 
-		$class .= 'on' === $use_bg_overlay ? ' et_pb_slider_with_overlay' : '';
-		$class .= 'on' === $use_text_overlay ? ' et_pb_slider_with_text_overlay' : '';
+		$class .= 'on' === $use_bg_overlay ? ' divi_flickity_slider_with_overlay' : '';
+		$class .= 'on' === $use_text_overlay ? ' divi_flickity_slider_with_text_overlay' : '';
 
 		if ( 'bottom' !== $alignment ) {
-			$class .= " et_pb_media_alignment_{$alignment}";
+			$class .= " divi_flickity_media_alignment_{$alignment}";
 		}
 
 		$data_dot_nav_custom_color = '' !== $dot_nav_custom_color
@@ -542,7 +542,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 			$processed_position = str_replace( '_', ' ', $background_position );
 
 			ET_Builder_Module::set_style( $function_name, array(
-				'selector'    => '.et_pb_slider %%order_class%%',
+				'selector'    => '.divi_flickity_slider %%order_class%%',
 				'declaration' => sprintf(
 					'background-position: %1$s;',
 					esc_html( $processed_position )
@@ -552,7 +552,7 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 
 		if ( 'default' !== $background_size && 'off' === $et_pb_slider_parallax ) {
 			ET_Builder_Module::set_style( $function_name, array(
-				'selector'    => '.et_pb_slider %%order_class%%',
+				'selector'    => '.divi_flickity_slider %%order_class%%',
 				'declaration' => sprintf(
 					'-moz-background-size: %1$s;
 					-webkit-background-size: %1$s;
@@ -565,23 +565,23 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 		$class = ET_Builder_Element::add_module_order_class( $class, $function_name );
 
 		if ( 1 === $et_pb_slider_item_num ) {
-			$class .= " et-pb-active-slide";
+			$class .= " divi-flickity-active-slide";
 		}
 
 		$output = sprintf(
-			'<div class="et_pb_slide%6$s"%4$s%10$s%11$s>
+			'<div class="divi_flickity_slide%6$s"%4$s%10$s%11$s>
 				%8$s
 				%12$s
-				<div class="et_pb_container clearfix">
+				<div class="divi_flickity_container clearfix">
 					%5$s
-					<div class="et_pb_slide_description">
+					<div class="divi_flickity_slide_description">
 						%1$s
-						<div class="et_pb_slide_content%9$s">%2$s</div>
+						<div class="divi_flickity_slide_content%9$s">%2$s</div>
 						%3$s
-					</div> <!-- .et_pb_slide_description -->
-				</div> <!-- .et_pb_container -->
+					</div> <!-- .divi_flickity_slide_description -->
+				</div> <!-- .divi_flickity_container -->
 				%7$s
-			</div> <!-- .et_pb_slide -->
+			</div> <!-- .divi_flickity_slide -->
 			',
 			$heading,
 			$this->shortcode_content,
@@ -590,11 +590,11 @@ class DVFL_Builder_Module_Slider_Item extends ET_Builder_Module {
 			$image,
 			esc_attr( $class ),
 			( '' !== $background_video ? $background_video : '' ),
-			( '' !== $background_image && 'on' === $et_pb_slider_parallax ? sprintf( '<div class="et_parallax_bg%2$s" style="background-image: url(%1$s);"></div>', esc_attr( $background_image ), ( 'off' === $et_pb_slider_parallax_method ? ' et_pb_parallax_css' : '' ) ) : '' ),
+			( '' !== $background_image && 'on' === $et_pb_slider_parallax ? sprintf( '<div class="divi_flickity_parallax_bg%2$s" style="background-image: url(%1$s);"></div>', esc_attr( $background_image ), ( 'off' === $et_pb_slider_parallax_method ? ' divi_flickity_parallax_css' : '' ) ) : '' ),
 			( 'on' === $et_pb_slider_hide_mobile['hide_content_on_mobile'] ? esc_attr( " {$hide_on_mobile_class}" ) : '' ),
 			$data_dot_nav_custom_color,
 			$data_arrows_custom_color,
-			'on' === $use_bg_overlay ? '<div class="et_pb_slide_overlay_container"></div>' : ''
+			'on' === $use_bg_overlay ? '<div class="divi_flickity_slide_overlay_container"></div>' : ''
 		);
 
 		return $output;
