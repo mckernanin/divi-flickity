@@ -37,8 +37,8 @@ class DiviFlickity {
 	}
 
 	public function scripts_styles() {
-		wp_register_style( 'flickity', 'https://npmcdn.com/flickity@1.2/dist/flickity.min.css' );
-		wp_register_script( 'flickity', 'https://npmcdn.com/flickity@1.2/dist/flickity.pkgd.min.js' );
+		wp_register_style( 'flickity', 'https://unpkg.com/flickity@1.2/dist/flickity.min.css' );
+		wp_register_script( 'flickity', 'https://unpkg.com/flickity@1.2/dist/flickity.pkgd.min.js' );
 	}
 
 	public function replace_shortcodes() {
